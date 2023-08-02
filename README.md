@@ -1,4 +1,4 @@
-# MediaPipe Tasks Hand Landmark Detection Android Demo
+# MediaPipe and Tensorflow-lite about Hands sign detect
 
 ### Overview
 
