@@ -35,6 +35,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
+import com.google.mediapipe.examples.handlandmarker.HandDetectTensorflow
 import com.google.mediapipe.examples.handlandmarker.HandLandmarkerHelper
 import com.google.mediapipe.examples.handlandmarker.MainViewModel
 import com.google.mediapipe.examples.handlandmarker.R
@@ -335,6 +336,9 @@ class CameraFragment : Fragment(), HandLandmarkerHelper.LandmarkerListener {
                 .also {
                     it.setAnalyzer(backgroundExecutor) { image ->
                         detectHand(image)
+                        // 在这里侦测是可以的
+                        val handDetectTensorflow = context?.let { it1 -> HandDetectTensorflow(it1) }
+                        handDetectTensorflow?.detect()
                     }
                 }
 
