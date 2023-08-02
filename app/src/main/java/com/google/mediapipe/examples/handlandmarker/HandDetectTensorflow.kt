@@ -78,8 +78,10 @@ class HandDetectTensorflow(val context: Context) {
     private fun transformListToArray(mutableList: MutableList<Float>): FloatArray {
         Log.e(TAG, "transformListToArray: ${mutableList.size}")
         val floatArray = FloatArray(1 * 30 * 126)
+        var i = 0
         mutableList.forEach {
-            
+            floatArray[i] = it
+            i++
         }
         return floatArray
     }
