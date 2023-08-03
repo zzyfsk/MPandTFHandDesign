@@ -46,11 +46,11 @@ object ResultUtil {
         var i = 0
         for (landmark in result.landmarks()) {
             for (normalizedLandmark in landmark) {
-                twoHandsResultList[i] = normalizedLandmark.x()
+                frameFloatArray[i] = normalizedLandmark.x()
                 i++
-                twoHandsResultList[i] = normalizedLandmark.y()
+                frameFloatArray[i] = normalizedLandmark.y()
                 i++
-                twoHandsResultList[i] = normalizedLandmark.z()
+                frameFloatArray[i] = normalizedLandmark.z()
                 i++
             }
         }
@@ -63,6 +63,9 @@ object ResultUtil {
         frameFloatArray.forEach {
             twoHandsResultList.add(it)
         }
+
+        //输出到一行上
+        Log.e(TAG, twoHandsResultList.joinToString() )
     }
 
     init {

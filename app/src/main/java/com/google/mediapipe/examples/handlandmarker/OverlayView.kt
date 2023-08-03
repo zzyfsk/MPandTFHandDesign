@@ -22,6 +22,7 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.ContextCompat
+import com.google.mediapipe.examples.handlandmarker.util.ResultUtil
 import com.google.mediapipe.tasks.vision.core.RunningMode
 import com.google.mediapipe.tasks.vision.handlandmarker.HandLandmarker
 import com.google.mediapipe.tasks.vision.handlandmarker.HandLandmarkerResult
@@ -98,6 +99,9 @@ class OverlayView(context: Context?, attrs: AttributeSet?) :
         runningMode: RunningMode = RunningMode.IMAGE
     ) {
         results = handLandmarkerResults
+
+        // 这里上传结果
+        ResultUtil.setAFrameToList(results!!)
 
         this.imageHeight = imageHeight
         this.imageWidth = imageWidth
