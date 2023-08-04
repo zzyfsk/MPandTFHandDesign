@@ -6,6 +6,12 @@
 
 *   这是一个建立在Mediapipe官方提供的示例基础上，结合Tensorflow lite 模型进行手势预测的项目
 
+### mediapipe的结果集介绍
+
+*   首先mediapipe的结果集是由三个部分组成：手的信息，手的坐标，和世界坐标（这个不用管）均为集合存储
+*   然后，当其对多个手进行检测的时候是由各个列表add而来也就是说当检测两只手时，mediapipe的下属三个集合的size为2
+*   所以无需增加mediapipe的结果集。
+
 ### Building
 
 *   使用Android Studio进行项目的构建。
@@ -19,3 +25,5 @@
 *   每一帧的检测完成，目前不确定左右手的result是否有区分
 *   get不到result的结果？？？？？？？？？？？？？？？？
 *   任务:解决result的问题
+
+
