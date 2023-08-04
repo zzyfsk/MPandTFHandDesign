@@ -32,7 +32,7 @@ import kotlin.math.min
 class OverlayView(context: Context?, attrs: AttributeSet?) :
     View(context, attrs) {
 
-    private var results: HandLandmarkerResult? = null
+    private var result: HandLandmarkerResult? = null
     private var linePaint = Paint()
     private var pointPaint = Paint()
 
@@ -45,7 +45,7 @@ class OverlayView(context: Context?, attrs: AttributeSet?) :
     }
 
     fun clear() {
-        results = null
+        result = null
         linePaint.reset()
         pointPaint.reset()
         invalidate()
@@ -65,7 +65,32 @@ class OverlayView(context: Context?, attrs: AttributeSet?) :
 
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
-        results?.let { handLandmarkerResult ->
+        result?.let { handLandmarkerResult ->
+            for (landmark in handLandmarkerResult.landmarks()) {
+                for (normalizedLandmark in landmark) {
+                    canvas.drawPoint(
+                        normalizedLandmark.x() * imageWidth * scaleFactor,
+                        normalizedLandmark.y() * imageHeight * scaleFactor,
+                        pointPaint
+                    )
+                }
+
+                HandLandmarker.HAND_CONNECTIONS.forEach {
+                    canvas.drawLine(
+                        handLandmarkerResult.landmarks().get(0).get(it!!.start())
+                            .x() * imageWidth * scaleFactor,
+                        handLandmarkerResult.landmarks().get(0).get(it.start())
+                            .y() * imageHeight * scaleFactor,
+                        handLandmarkerResult.landmarks().get(0).get(it.end())
+                            .x() * imageWidth * scaleFactor,
+                        handLandmarkerResult.landmarks().get(0).get(it.end())
+                            .y() * imageHeight * scaleFactor,
+                        linePaint
+                    )
+                }
+            }
+        }
+        result?.let { handLandmarkerResult ->
             for (landmark in handLandmarkerResult.landmarks()) {
                 for (normalizedLandmark in landmark) {
                     canvas.drawPoint(
@@ -93,15 +118,15 @@ class OverlayView(context: Context?, attrs: AttributeSet?) :
     }
 
     fun setResults(
-        handLandmarkerResults: HandLandmarkerResult,
+        handLandmarkerResultOne: HandLandmarkerResult,
         imageHeight: Int,
         imageWidth: Int,
         runningMode: RunningMode = RunningMode.IMAGE
     ) {
-        results = handLandmarkerResults
+        result = handLandmarkerResultOne
 
         // 这里上传结果
-        ResultUtil.setAFrameToList(results!!)
+        ResultUtil.setAFrameToList(handLandmarkerResultOne)
 
         this.imageHeight = imageHeight
         this.imageWidth = imageWidth
@@ -125,3 +150,4 @@ class OverlayView(context: Context?, attrs: AttributeSet?) :
         private const val LANDMARK_STROKE_WIDTH = 8F
     }
 }
+

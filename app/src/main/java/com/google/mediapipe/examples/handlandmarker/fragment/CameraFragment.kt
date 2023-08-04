@@ -382,7 +382,15 @@ class CameraFragment : Fragment(), HandLandmarkerHelper.LandmarkerListener {
             if (_fragmentCameraBinding != null) {
                 fragmentCameraBinding.bottomSheetLayout.inferenceTimeVal.text =
                     String.format("%d ms", resultBundle.inferenceTime)
-
+                val regex = """"([^"]+)"""".toRegex()
+                if(resultBundle.results.first().handednesses().size>1){
+                    val matchResult = regex.find(resultBundle.results.first().handednesses()[0].toString())
+                    Log.e("ResultTest", "onResults: "+matchResult?.groupValues?.get(1))
+                }else if (resultBundle.results.first().handednesses().size>0){
+                    val matchResult = regex.find(resultBundle.results.first().handednesses()[0].toString())
+                    Log.e("ResultTest", "onResults: "+matchResult?.groupValues?.get(1) )
+                }else Log.e("ResultTest", "onResults: None" )
+                Log.e("ResultTest", String.format("ResultMessage:集合大小 %d 该结果大小 %d" ,resultBundle.results.size,resultBundle.results[0].handednesses().size) )
                 // Pass necessary information to OverlayView for drawing on the canvas
                 /** As the same, 我们可以在这里取到结果以便于识别*/
                 fragmentCameraBinding.overlay.setResults(
@@ -391,6 +399,7 @@ class CameraFragment : Fragment(), HandLandmarkerHelper.LandmarkerListener {
                     resultBundle.inputImageWidth,
                     RunningMode.LIVE_STREAM
                 )
+
 
                 // Force a redraw
                 // 强制重新绘图

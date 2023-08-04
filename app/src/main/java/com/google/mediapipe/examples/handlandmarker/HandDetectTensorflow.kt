@@ -13,13 +13,16 @@ import com.google.mediapipe.examples.handlandmarker.util.AssetsUtil
 import com.google.mediapipe.examples.handlandmarker.util.ResultUtil
 
 
+/**
+ * 使用Tensorflow lite 模型进行检测
+ * @author zzy
+ * */
+
+
 class HandDetectTensorflow(val context: Context) {
+
     private val TAG = "PersonalTest"
 
-    /**
-     * 使用Tensorflow lite 模型进行检测
-     * @author zzy
-     * */
     fun detect() {
         // 读取asset文件里的tflite模型
         val inputStream = AssetsUtil.getAssetsFile(context, "model.tflite")
@@ -52,19 +55,19 @@ class HandDetectTensorflow(val context: Context) {
         inputModelBuffer.loadArray(tempFloatArray)
         val byteBuffer = inputModelBuffer.buffer
         tfliteModel.run(byteBuffer, output)
-        Log.e(TAG, "initC:" + output)
+        Log.e(TAG, "initC:$output")
         val inputTensorBuffer = TensorBuffer.createFixedSize(intArrayOf(1, 3), DataType.FLOAT32)
         inputTensorBuffer.loadBuffer(output)
         val inputArray = inputTensorBuffer.floatArray
         val inputArrayString = Arrays.toString(inputArray)
 
-        val confidences: FloatArray = inputArray
+        val detectProbability: FloatArray = inputArray
         // 选择排序找最大的
         var maxPos = 0
-        var maxConfidence = 0f
-        for (i in confidences.indices) {
-            if (confidences[i] > maxConfidence) {
-                maxConfidence = confidences[i]
+        var maxProbability = 0f
+        for (i in detectProbability.indices) {
+            if (detectProbability[i] > maxProbability) {
+                maxProbability = detectProbability[i]
                 maxPos = i
             }
         }
