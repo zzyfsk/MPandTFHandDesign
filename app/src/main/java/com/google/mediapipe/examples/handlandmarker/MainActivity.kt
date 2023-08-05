@@ -15,7 +15,6 @@
  */
 package com.google.mediapipe.examples.handlandmarker
 
-import android.content.Context
 import android.content.res.AssetManager
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -40,13 +39,8 @@ class MainActivity : AppCompatActivity() {
         activityMainBinding.navigation.setOnNavigationItemReselectedListener {
             // ignore the reselection
         }
-        initA()
     }
 
-    fun initA(){
-        val handDetectTensorflow = HandDetectTensorflow(applicationContext)
-        handDetectTensorflow.detect()
-    }
 
     override fun onBackPressed() {
        finish()
