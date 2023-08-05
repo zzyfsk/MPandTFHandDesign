@@ -296,7 +296,6 @@ class GalleryFragment : Fragment(), HandLandmarkerHelper.LandmarkerListener {
                                 result.results[0],
                                 bitmap.height,
                                 bitmap.width,
-                                RunningMode.IMAGE
                             )
 
                             setUiEnabled(true)
