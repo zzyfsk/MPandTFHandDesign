@@ -60,11 +60,17 @@
             app:itemTextColor="@color/bg_nav_item"
             app:menu="@menu/menu_bottom_nav" />
 
+        <TextView
+            android:id="@+id/text_result"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_below="@+id/navigation"
+            android:text="no result"/>
         <View
             android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@id/navigation"
+            android:layout_below="@id/text_result"
             android:background="@android:color/darker_gray" />
 
     </RelativeLayout>

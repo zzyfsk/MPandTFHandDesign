@@ -17,13 +17,18 @@ package com.google.mediapipe.examples.handlandmarker
 
 import android.content.res.AssetManager
 import android.os.Bundle
+import android.util.Log
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.google.mediapipe.examples.handlandmarker.controller.MainActivityController
 import com.google.mediapipe.examples.handlandmarker.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    private var textView:TextView? = null
+
     private lateinit var activityMainBinding: ActivityMainBinding
     private val viewModel : MainViewModel by viewModels()
 
@@ -39,8 +44,16 @@ class MainActivity : AppCompatActivity() {
         activityMainBinding.navigation.setOnNavigationItemReselectedListener {
             // ignore the reselection
         }
+        MainActivityController.getMainActivityController().context = this
+        MainActivityController.getMainActivityController().activity = this@MainActivity
     }
 
+
+    fun setText(str:String){
+        textView = findViewById(R.id.text_result)
+        textView?.text = str
+        Log.e("ActivityTest", "setText: HaveDone", )
+    }
 
     override fun onBackPressed() {
        finish()

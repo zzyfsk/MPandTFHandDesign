@@ -9,6 +9,7 @@ import java.nio.ByteOrder
 import java.util.Arrays
 
 import android.content.Context
+import com.google.mediapipe.examples.handlandmarker.controller.MainActivityController
 import com.google.mediapipe.examples.handlandmarker.util.AssetsUtil
 import com.google.mediapipe.examples.handlandmarker.util.ResultUtil
 
@@ -72,14 +73,16 @@ class HandDetectTensorflow(val context: Context) {
             }
         }
         val classes = arrayOf("thank", "iloveyou", "hello")
-        Log.e(TAG, "initC: $inputArrayString")
-        Log.e(TAG, "initC: " + classes[maxPos])
+        Log.d(TAG, "TensorResult: $inputArrayString")
+        Log.d(TAG, "TensorResult: " + classes[maxPos])
+
+        MainActivityController.getMainActivityController().setText(classes[maxPos])
     }
 
 
     // 尚未完成
     private fun transformListToArray(mutableList: MutableList<Float>): FloatArray {
-        Log.e(TAG, "transformListToArray: ${mutableList.size}")
+        Log.d(TAG, "transformListToArray: ${mutableList.size}")
         val floatArray = FloatArray(1 * 30 * 126)
         var i = 0
         mutableList.forEach {
