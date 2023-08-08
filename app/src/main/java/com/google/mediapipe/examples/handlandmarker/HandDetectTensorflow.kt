@@ -26,7 +26,7 @@ class HandDetectTensorflow(val context: Context) {
 
     fun detect() {
         // 读取asset文件里的tflite模型
-        val inputStream = AssetsUtil.getAssetsFile(context, "model.tflite")
+        val inputStream = AssetsUtil.getAssetsFile(context, "hello.tflite")
         inputStream.bufferedReader()
         val modelData = inputStream.readBytes()
         // 将字节数据转换为 ByteBuffer 对象
@@ -72,7 +72,7 @@ class HandDetectTensorflow(val context: Context) {
                 maxPos = i
             }
         }
-        val classes = arrayOf("thank", "iloveyou", "hello")
+        val classes = arrayOf("hello","fivefive")
         Log.d(TAG, "TensorResult: $inputArrayString")
         Log.d(TAG, "TensorResult: " + classes[maxPos])
 
@@ -80,7 +80,7 @@ class HandDetectTensorflow(val context: Context) {
     }
 
 
-    // 尚未完成
+    // 尚未完成，好像也不需要完成了
     private fun transformListToArray(mutableList: MutableList<Float>): FloatArray {
         Log.d(TAG, "transformListToArray: ${mutableList.size}")
         val floatArray = FloatArray(1 * 30 * 126)
