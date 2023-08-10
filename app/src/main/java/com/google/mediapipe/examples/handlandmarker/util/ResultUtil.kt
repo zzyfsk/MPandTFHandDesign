@@ -146,38 +146,6 @@ object ResultUtil {
         Log.e(TAG, twoHandsResultList.joinToString())
     }
 
-    /**
-     * 4、递推平均滤波法（又称滑动平均滤波法）
-    A、方法：
-    把连续取N个采样值看成一个队列
-    队列的长度固定为N
-    每次采样到一个新数据放入队尾，并扔掉原来队首的一次数据.(先进先出原则)
-    把队列中的N个数据进行算术平均运算，就可获得新的滤波结果
-    N值的选取：流量，N=12；压力：N=4；液面，N=4~12；温度，N=1~4
-     * */
-    fun input(result: String) {
-        if (resultDetect.size < 30) {
-            resultDetect.add(result)
-        } else {
-            resultDetect.removeFirst()
-            resultDetect.add(result)
-        }
-    }
-
-    fun test() {
-        var a = 0
-        var b = 0
-        resultDetect.forEach {
-            if (it == "a") a++
-            if (it == "b") b++
-        }
-        if (a>b) {
-            a++
-        } else{
-            b++
-        }
-    }
-
 
     init {
         for (i in 1..NUMFRAME * NUMHANDS * NUMKEYPOINTS * NUMAXIS) {

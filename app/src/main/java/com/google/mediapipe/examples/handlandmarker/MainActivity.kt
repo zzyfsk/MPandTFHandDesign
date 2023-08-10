@@ -17,7 +17,6 @@ package com.google.mediapipe.examples.handlandmarker
 
 import android.content.res.AssetManager
 import android.os.Bundle
-import android.util.Log
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -49,17 +48,15 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+
     fun setText(str:String){
-        textView = findViewById(R.id.text_result)
-        textView?.text = str
-        Log.e("ActivityTest", "setText: HaveDone", )
+        runOnUiThread {
+            textView = findViewById(R.id.text_result)
+            textView?.text = str
+        }
     }
 
     override fun onBackPressed() {
        finish()
-    }
-
-    fun getAssetsManager(): AssetManager {
-        return applicationContext.assets
     }
 }

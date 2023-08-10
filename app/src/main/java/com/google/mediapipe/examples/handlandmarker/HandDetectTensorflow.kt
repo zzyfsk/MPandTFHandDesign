@@ -23,9 +23,14 @@ import com.google.mediapipe.examples.handlandmarker.util.ResultUtil
 class HandDetectTensorflow(val context: Context) {
 
     private val TAG = "PersonalTest"
+    private val resultProcessing = ResultProcessing()
+
+    init {
+        resultProcessing.createListResult(arrayOf("hello","fivefive"))
+    }
 
     fun detect() {
-        // 读取asset文件里的tflite模型
+        // 读取asset文件里的tf-lite模型
         val inputStream = AssetsUtil.getAssetsFile(context, "hello.tflite")
         inputStream.bufferedReader()
         val modelData = inputStream.readBytes()
@@ -76,11 +81,12 @@ class HandDetectTensorflow(val context: Context) {
         Log.d(TAG, "TensorResult: $inputArrayString")
         Log.d(TAG, "TensorResult: " + classes[maxPos])
 
-        MainActivityController.getMainActivityController().setText(classes[maxPos])
+        resultProcessing.countResult(classes[maxPos])
+        MainActivityController.getMainActivityController().setText(resultProcessing.getResult())
     }
 
 
-    // 尚未完成，好像也不需要完成了
+    // 将list转为array 不确定是否必要
     private fun transformListToArray(mutableList: MutableList<Float>): FloatArray {
         Log.d(TAG, "transformListToArray: ${mutableList.size}")
         val floatArray = FloatArray(1 * 30 * 126)

@@ -382,13 +382,12 @@ class CameraFragment : Fragment(), HandLandmarkerHelper.LandmarkerListener {
             if (_fragmentCameraBinding != null) {
                 fragmentCameraBinding.bottomSheetLayout.inferenceTimeVal.text =
                     String.format("%d ms", resultBundle.inferenceTime)
-                val regex = """"([^"]+)"""".toRegex()
                 if(resultBundle.results.first().handednesses().size>1){
-                    val matchResult = regex.find(resultBundle.results.first().handednesses()[0].toString())
-                    Log.e("ResultTest", "onResults: "+matchResult?.groupValues?.get(1))
+                    val matchResult = resultBundle.results.first().handednesses()[0][0].displayName()
+                    Log.e("ResultTest", "onResults: $matchResult")
                 }else if (resultBundle.results.first().handednesses().size>0){
-                    val matchResult = regex.find(resultBundle.results.first().handednesses()[0].toString())
-                    Log.e("ResultTest", "onResults: "+matchResult?.groupValues?.get(1) )
+                    val matchResult = resultBundle.results.first().handednesses()[0][0].displayName()
+                    Log.e("ResultTest", "onResults: $matchResult")
                 }else Log.e("ResultTest", "onResults: None" )
                 Log.e("ResultTest", String.format("ResultMessage:集合大小 %d 该结果大小 %d" ,resultBundle.results.size,resultBundle.results[0].handednesses().size) )
                 // Pass necessary information to OverlayView for drawing on the canvas
